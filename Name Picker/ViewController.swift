@@ -48,7 +48,8 @@ class ViewController: UIViewController {
         
         let shuffled = nameLabels.shuffle()
         
-        let labels = dropLast(shuffled)
+        let labels = shuffled.dropLast()
+        
         
         var time = 1.0
         
@@ -72,7 +73,7 @@ class ViewController: UIViewController {
     
 }
 
-extension CollectionType where Index == Int {
+extension CollectionType {
     /// Return a copy of `self` with its elements shuffled
     func shuffle() -> [Generator.Element] {
         var list = Array(self)
@@ -89,8 +90,10 @@ extension MutableCollectionType where Index == Int {
         
         for i in 0..<count - 1 {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            guard i != j else { continue }
             swap(&self[i], &self[j])
         }
     }
 }
+
 
